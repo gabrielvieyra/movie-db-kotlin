@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.movie_db_kotlin.home.presentation.HomeScreen
 import com.example.movie_db_kotlin.home.presentation.HomeViewModel
 import com.example.movie_db_kotlin.ui.theme.MoviedbkotlinTheme
@@ -26,7 +29,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen(viewModel = viewModel)
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "home") {
+                        composable(route = "home") {
+                            HomeScreen(viewModel = viewModel)
+                        }
+                    }
                 }
             }
         }

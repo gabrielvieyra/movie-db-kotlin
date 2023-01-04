@@ -1,5 +1,7 @@
 package com.example.movie_db_kotlin.home.presentation
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,19 +20,20 @@ class HomeViewModel @Inject constructor(
         private set
 
     init {
+        state = state.copy(isLoading = true)
         getUpcomingMovies()
     }
 
     private fun getUpcomingMovies() {
         viewModelScope.launch {
-            state = state.copy(
-                isLoading = true
-            )
-            val movies = repository.getUpcomingMovies()
-            state = state.copy(
-                upcoming = movies,
-                isLoading = true
-            )
+            repository.getUpcomingMovies().onSuccess {
+                state = state.copy(
+                    upcoming = it,
+                )
+            }.onFailure {
+                Log.d(TAG, "error")
+            }
+            state = state.copy(isLoading = false)
         }
     }
 }
