@@ -10,12 +10,24 @@ import java.lang.Exception
 class MovieRepositoryImp(
     private val api: MovieApi
 ): MovieRepository {
+    // getUpcomingMovies
     override suspend fun getUpcomingMovies(): Result<List<Movie>> {
         return try {
             val response = api.getUpcomingMovies().results
             // El metodo map lo que hace es recorrer todo el listado de results y que por cada uno va a llamar el metodo convert
             val upcomingMovies = response.map { convert(it) }
             Result.success(upcomingMovies)
+        } catch (e:Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // getPopularMovies
+    override suspend fun getPopularMovies(): Result<List<Movie>> {
+        return try {
+            val response = api.getPopularMovies().results
+            val popularMovies = response.map { convert(it) }
+            Result.success(popularMovies)
         } catch (e:Exception) {
             Result.failure(e)
         }

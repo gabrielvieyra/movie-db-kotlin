@@ -1,8 +1,6 @@
 package com.example.movie_db_kotlin.home.presentation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -22,9 +20,16 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     // En este caso usamos LazyColumn por que la columna tiene que ser scrolleable
     LazyColumn(modifier = Modifier.fillMaxSize().padding(start = 25.dp)) {
-        if (state.upcoming.isNotEmpty()) {
+        item { Spacer(modifier = Modifier.height(24.dp))}
+        if (state.upcomingMovies.isNotEmpty()) {
             item {
-                HomeMovieList(title = "Proximos Estrenos", posters = state.upcoming.map { it.image })
+                HomeMovieList(title = "Proximos Estrenos", posters = state.upcomingMovies.map { it.image })
+            }
+        }
+        item { Spacer(modifier = Modifier.height(24.dp))}
+        if (state.popularMovies.isNotEmpty()) {
+            item {
+                HomeMovieList(title = "Tendencia", posters = state.popularMovies.map { it.image })
             }
         }
     }

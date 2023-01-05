@@ -8,6 +8,7 @@ import retrofit2.http.GET
 
 // Para hacer una pegada a la api tenemos que crear una instancia de retrofit
 // Nos creamos una interfaz, usamos interfaz ya que retrofit usa interfaces
+// Para llamar a MovieApi usamos repository que es algo que recomienda google
 interface MovieApi {
     companion object {
         const val IMAGE_URL = "https://image.tmdb.org/t/p/original/"
@@ -21,7 +22,9 @@ interface MovieApi {
     @GET("movie/upcoming")
     // Este metodo va a retornar un listado de peliculas que se van a estrenar proximamente
     suspend fun getUpcomingMovies(): MovieDtoResponse
-    // Para llamar a MovieApi usamos repository que es algo que recomienda google
+
+    @GET("movie/popular")
+    suspend fun getPopularMovies(): MovieDtoResponse
 }
 
 
