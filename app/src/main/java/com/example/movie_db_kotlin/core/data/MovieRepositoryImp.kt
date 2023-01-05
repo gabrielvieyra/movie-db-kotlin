@@ -30,7 +30,7 @@ class MovieRepositoryImp(
             releaseYear = results.release_date.substring(0, 4).toInt(),
             language = results.original_language,
             rating = results.vote_average,
-            image = MovieApi.BASE_URL + results.poster_path,
+            image = MovieApi.IMAGE_URL + results.poster_path,
             genres = results.genre_ids
         )
     }

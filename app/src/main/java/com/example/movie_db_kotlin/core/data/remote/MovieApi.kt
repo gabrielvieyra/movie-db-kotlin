@@ -10,6 +10,7 @@ import retrofit2.http.GET
 // Nos creamos una interfaz, usamos interfaz ya que retrofit usa interfaces
 interface MovieApi {
     companion object {
+        const val IMAGE_URL = "https://image.tmdb.org/t/p/original/"
         const val BASE_URL = "https://api.themoviedb.org/3/"
     }
 
