@@ -24,7 +24,7 @@ fun HomeMovieList(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        Text(text = title, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, color = Color.White)
+        CategoryTitle(title)
         Spacer(modifier = Modifier.height(20.dp))
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
@@ -36,7 +36,8 @@ fun HomeMovieList(
                         .crossfade(true)
                         .build(),
                     contentDescription = "poster",
-                    modifier = Modifier.clip(RoundedCornerShape(8.dp))
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
                         .size(width = 138.dp, height = 180.dp),
                     contentScale = ContentScale.Crop
                 )

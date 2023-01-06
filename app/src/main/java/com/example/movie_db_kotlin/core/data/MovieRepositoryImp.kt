@@ -4,6 +4,7 @@ import com.example.movie_db_kotlin.core.data.remote.MovieApi
 import com.example.movie_db_kotlin.core.data.remote.dto.MovieResult
 import com.example.movie_db_kotlin.core.domain.model.Movie
 import com.example.movie_db_kotlin.core.domain.repository.MovieRepository
+import com.example.movie_db_kotlin.home.presentation.HomeEvent
 import java.lang.Exception
 
 // Creamos la clase repository y vamos a hacer que reciba la api

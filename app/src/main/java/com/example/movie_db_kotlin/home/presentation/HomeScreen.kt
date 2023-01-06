@@ -12,14 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.movie_db_kotlin.home.presentation.components.CategoryTitle
 import com.example.movie_db_kotlin.home.presentation.components.HomeMovieList
+import com.example.movie_db_kotlin.home.presentation.components.HomeRecommended
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val state = viewModel.state
 
     // En este caso usamos LazyColumn por que la columna tiene que ser scrolleable
-    LazyColumn(modifier = Modifier.fillMaxSize().padding(start = 25.dp)) {
+    LazyColumn(modifier = Modifier
+        .fillMaxSize()
+        .padding(start = 25.dp)) {
         item { Spacer(modifier = Modifier.height(24.dp))}
         if (state.upcomingMovies.isNotEmpty()) {
             item {
@@ -30,6 +34,14 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
         if (state.popularMovies.isNotEmpty()) {
             item {
                 HomeMovieList(title = "Tendencia", posters = state.popularMovies.map { it.image })
+            }
+        }
+        item { Spacer(modifier = Modifier.height(24.dp))}
+        item {
+            HomeRecommended(selectedFilter = state.selectedFilter, onFilterClick = {
+                viewModel.onEvent(HomeEvent.ChangeFilter(it))
+            }, movieList = state.filteredMovies) {
+
             }
         }
     }
