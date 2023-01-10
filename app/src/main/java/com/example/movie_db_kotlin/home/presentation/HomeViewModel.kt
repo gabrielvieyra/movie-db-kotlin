@@ -71,14 +71,14 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun getMoviesByFilter() {
-        val job = when (state.selectedFilter) {
+        val result = when (state.selectedFilter) {
             FilterType.SPANISH -> repository.getMoviesByLanguage("es")
             FilterType.NINETY_THREE -> repository.getMoviesByYear(1993)
         }
 
-        job.onSuccess {
+        result.onSuccess {
             state = state.copy(
-                filteredMovies = it,
+                filteredMovies = it.subList(0, 6)
             )
         }.onFailure {
             Log.d(TAG, "error")

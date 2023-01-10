@@ -14,9 +14,7 @@ import com.example.movie_db_kotlin.home.presentation.FilterType
 fun HomeRecommended(
     selectedFilter: FilterType,
     onFilterClick: (FilterType) -> Unit,
-    movieList: List<Movie>,
     modifier: Modifier = Modifier,
-    onMovieClick: (Movie) -> Unit
 ) {
         Column(modifier = modifier.fillMaxWidth()) {
             CategoryTitle(title = "Recomendados para ti")
