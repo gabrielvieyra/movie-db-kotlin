@@ -26,6 +26,7 @@ class HomeViewModel @Inject constructor(
             supervisorScope {
                 val upcoming = launch { getUpcomingMovies() }
                 val popular = launch { getPopularMovies() }
+                val filtered = launch { getMoviesByFilter() }
                 listOf(upcoming, popular).forEach { it.join() }
                 state = state.copy(isLoading = false)
             }
@@ -39,6 +40,9 @@ class HomeViewModel @Inject constructor(
                     state = state.copy(
                         selectedFilter = event.filterType
                     )
+                    viewModelScope.launch {
+                        getMoviesByFilter()
+                    }
                 }
             }
             is HomeEvent.onMovieClick -> TODO()
@@ -64,6 +68,21 @@ class HomeViewModel @Inject constructor(
                 Log.d(TAG, "error")
             }
             state = state.copy(isLoading = false)
+    }
+
+    private suspend fun getMoviesByFilter() {
+        val job = when (state.selectedFilter) {
+            FilterType.SPANISH -> repository.getMoviesByLanguage("es")
+            FilterType.NINETY_THREE -> repository.getMoviesByYear(1993)
+        }
+
+        job.onSuccess {
+            state = state.copy(
+                filteredMovies = it,
+            )
+        }.onFailure {
+            Log.d(TAG, "error")
+        }
     }
 }
 

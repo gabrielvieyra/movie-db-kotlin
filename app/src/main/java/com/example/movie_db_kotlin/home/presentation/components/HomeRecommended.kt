@@ -18,7 +18,6 @@ fun HomeRecommended(
     modifier: Modifier = Modifier,
     onMovieClick: (Movie) -> Unit
 ) {
-    if (movieList.isNotEmpty()) {
         Column(modifier = modifier.fillMaxWidth()) {
             CategoryTitle(title = "Recomendados para ti")
             Spacer(modifier = Modifier.height(12.dp))
@@ -28,7 +27,6 @@ fun HomeRecommended(
                 onFilterClick = onFilterClick
             )
         }
-    }
 }
 
 

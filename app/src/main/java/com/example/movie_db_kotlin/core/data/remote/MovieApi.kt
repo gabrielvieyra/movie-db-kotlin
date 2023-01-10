@@ -2,9 +2,11 @@ package com.example.movie_db_kotlin.core.data.remote
 
 import com.example.movie_db_kotlin.core.data.remote.dto.MovieDtoResponse
 import okhttp3.OkHttpClient
+import org.intellij.lang.annotations.Language
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 // Para hacer una pegada a la api tenemos que crear una instancia de retrofit
 // Nos creamos una interfaz, usamos interfaz ya que retrofit usa interfaces
@@ -25,6 +27,12 @@ interface MovieApi {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(): MovieDtoResponse
+
+    @GET("discover/movie?sort_by=popularity.desc&include_adult=false")
+    suspend fun getMoviesByYear(@Query("year") year: Int): MovieDtoResponse
+
+    @GET("discover/movie?sort_by=popularity.desc&include_adult=false")
+    suspend fun getMoviesByLanguage(@Query("with_original_language") language: String): MovieDtoResponse
 }
 
 

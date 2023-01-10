@@ -34,6 +34,28 @@ class MovieRepositoryImp(
         }
     }
 
+    // getMoviesByYear
+    override suspend fun getMoviesByYear(year: Int): Result<List<Movie>> {
+        return try {
+            val response = api.getMoviesByYear(year).results
+            val moviesByYear = response.map { convert(it) }
+            Result.success(moviesByYear)
+        } catch (e:Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // getMoviesByLanguage
+    override suspend fun getMoviesByLanguage(language: String): Result<List<Movie>> {
+        return try {
+            val response = api.getMoviesByLanguage(language).results
+            val moviesByLanguage = response.map { convert(it) }
+            Result.success(moviesByLanguage)
+        } catch (e:Exception) {
+            Result.failure(e)
+        }
+    }
+
     // Vamos a convertir el listado de tipo MovieResult a un listado de tipo Movie
     private fun convert(results: MovieResult) : Movie {
         return Movie(

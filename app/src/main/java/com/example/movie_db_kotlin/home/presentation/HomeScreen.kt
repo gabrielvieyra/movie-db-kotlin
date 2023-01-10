@@ -41,7 +41,6 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
             HomeRecommended(selectedFilter = state.selectedFilter, onFilterClick = {
                 viewModel.onEvent(HomeEvent.ChangeFilter(it))
             }, movieList = state.filteredMovies) {
-
             }
         }
     }
